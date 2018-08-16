@@ -1,6 +1,6 @@
 $filename = "VDAServerSetup_7.18.exe"
 $url = "http:\\MYURL.COM\"
-$UnattendedArgs  = "/quiet /optimize /components vda /controllers 'ctxlicense-0.lab.local' /enable_remote_assistance /enable_hdx_ports /enable_real_time_transport /virtualmachine /noreboot /noresume /logpath 'C:\Windows\Temp\VDA' /masterimage"
+$UnattendedArgs  = "/quiet /optimize /components vda /controllers 'mycontroller.domain.com' /enable_remote_assistance /enable_hdx_ports /enable_real_time_transport /virtualmachine /noreboot /noresume /logpath 'C:\Windows\Temp\VDA' /masterimage"
 $filepath = "$($env:SystemRoot)\temp\"
 
 if(test-path ("$filepath\$filename"))
