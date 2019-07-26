@@ -1,8 +1,8 @@
-﻿#disable domain firewall
+﻿Write-Host "WINRMPASS: $env:WINRMPASS"
+
+#disable domain firewall
 Write-Host "Disable Domain Firewall"
 Set-NetFirewallProfile -Name "Domain" -Enabled False -Verbose
-
-Write-Host "WINRMPASS: $env:WINRMPASS"
 
 Write-Host "Starting Installation of Windows Roles and Features"
 $features = @(
