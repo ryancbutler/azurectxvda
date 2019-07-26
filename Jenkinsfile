@@ -18,7 +18,7 @@ pipeline {
         mycitrix = credentials('mycitrix')
 
         //verbose logging
-        PACKER_LOG = 1
+        //PACKER_LOG = 1
     }
     stages {
         stage('Build Windows Image') {
