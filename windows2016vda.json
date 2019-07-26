@@ -8,8 +8,8 @@
     "storage_account": "{{env `storage_account`}}",
     "citrixusername": "{{env `mycitrix_USR`}}",
     "citrixpassword": "{{env `mycitrix_PSW`}}",
-    "vdacontrollers": "ctxlicense-0.lab.local",
-    "vda": "VDAServerSetup_1906.exe"
+    "vdacontrollers": "{{env `vdacontrollers`}}",
+    "vda": "{{env `vda`}}"
   },
   "builders": [
     {
@@ -103,6 +103,26 @@
     {
       "type": "powershell",
       "inline": ["c:\\windows\\temp\\opt\\CtxOptimizerEngine.ps1 -Source \"c:\\windows\\temp\\opt\\Templates\\Citrix_Windows_Server_2016_1607.xml\" -Mode Execute -OutputXml \"C:\\Windows\\Temp\\ctxopt.xml\""]
+    },
+    {
+      "type": "powershell",
+      "inline": ["get-hotfix|Select-Object description,hotfixid,caption|sort-object HotFixID|ConvertTo-Json|Out-File 'c:\\windows\\temp\\hotfix.json' -force"]
+    },
+    {
+      "type": "file",
+      "source": "c:\\windows\\temp\\hotfix.json",
+      "destination": "./hotfix.json",
+      "direction": "download"
+    },
+    {
+      "type": "powershell",
+      "inline": ["get-package|Select-Object Name,Version,Source,ProviderName|sort-object Name|ConvertTo-Json|Out-File 'c:\\windows\\temp\\package.json' -force"]
+    },
+    {
+      "type": "file",
+      "source": "c:\\windows\\temp\\package.json",
+      "destination": "./package.json",
+      "direction": "download"
     }
   ]
 }
