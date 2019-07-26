@@ -1,59 +1,58 @@
 {
-    "builders": [{
+  "variables": {
+    "client_id": "{{env `client_id`}}",
+    "client_secret": "{{env `client_secret`}}",
+    "subid": "{{env `subid`}}",
+    "tenantid": "{{env `tenantid`}}",
+    "rgname": "{{env `rgname`}}",
+    "storage_account": "{{env `storage_account`}}",
+    "citrixusername": "{{env `mycitrix_USR`}}",
+    "citrixpassword": "{{env `mycitrix_PSW`}}",
+    "vdacontrollers": "ctxlicense-0.lab.local",
+    "vda": "VDAServerSetup_1906.exe"
+  },
+  "builders": [
+    {
       "type": "azure-arm",
-  
-      "client_id": "FROMSCRIPT",
-      "client_secret": "FROMSCRIPT",
-      "subscription_id": "FROMSCRIPT",
-      "tenant_id": "FROMSCRIPT",
-      
-  
-      "resource_group_name": "FROMSCRIPT",
+      "client_id": "{{user `client_id`}}",
+      "client_secret": "{{user `client_secret`}}",
+      "subscription_id": "{{user `subid`}}",
+      "tenant_id": "{{user `tenantid`}}",
+      "resource_group_name": "{{user `rgname`}}",
       "capture_container_name": "vdas",
       "capture_name_prefix": "ctxvda",
-      "storage_account": "FROMSCRIPT",
-  
+      "storage_account": "{{user `storage_account`}}",
       "os_type": "Windows",
       "image_publisher": "MicrosoftWindowsServer",
       "image_offer": "WindowsServer",
       "image_sku": "2016-Datacenter",
-  
       "communicator": "winrm",
       "winrm_use_ssl": true,
       "winrm_insecure": true,
       "winrm_timeout": "3m",
       "winrm_username": "packer",
-
       "azure_tags": {
-          "dept": "Engineering",
-          "task": "Image deployment"
+        "dept": "Engineering",
+        "task": "Image deployment"
       },
-  
       "location": "centralus",
       "vm_size": "Standard_DS2_v2"
-    }],
-    "provisioners": [
+    }
+  ],
+  "provisioners": [
     {
       "type": "powershell",
-      "script": "features.ps1"
+      "script": "features.ps1",
+      "environment_vars":[
+      "WINRMPASS={{.WinRMPassword}}"
+      ]
     },
     {
       "type": "windows-restart"
     },
     {
       "type": "powershell",
-      "script": "modules.ps1" 
-    },
-    {
-      "type": "powershell",
-      "script": "ctxvda.ps1"
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-      "type": "powershell",
-      "script": "ctxvda.ps1"
+      "script": "modules.ps1"
     },
     {
       "type": "windows-restart"
@@ -61,6 +60,49 @@
     {
       "type": "powershell",
       "script": "choco.ps1"
+    },
+    {
+      "type": "powershell",
+      "script": "Download1906ServerVDA.ps1",
+      "environment_vars":[
+        "citrixusername={{user `citrixusername`}}",
+        "citrixpassword={{user `citrixpassword`}}",
+        "vda={{user `vda`}}"
+      ]
+    },
+    {
+      "type": "powershell",
+      "script": "DownloadCTXOptimizer.ps1",
+      "environment_vars":[
+        "citrixusername={{user `citrixusername`}}",
+        "citrixpassword={{user `citrixpassword`}}"
+      ]
+    },
+    {
+      "type": "powershell",
+      "script": "ctxvda.ps1",
+      "environment_vars":[
+        "vda={{user `vda`}}",
+        "vdacontrollers={{user `vdacontroller`}}"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "script": "ctxvda.ps1",
+      "environment_vars":[
+        "vda={{user `vda`}}",
+        "vdacontrollers={{user `vdacontroller`}}"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "inline": ["c:\\windows\\temp\\opt\\CtxOptimizerEngine.ps1 -Source \"c:\\windows\\temp\\opt\\Templates\\Citrix_Windows_Server_2016_1607.xml\" -Mode Execute -OutputXml \"C:\\Windows\\Temp\\ctxopt.xml\""]
     }
-    ]
-  }
+  ]
+}

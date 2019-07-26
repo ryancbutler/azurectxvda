@@ -1,14 +1,13 @@
-﻿param (
+﻿param(
 
-[string]$azurelocation = 'centralus',
-[string]$app_password = 'mysupersecrect',
-[string]$subscription_ID = "SUBID"
-
+	[string]$azurelocation = 'centralus',
+	[string]$app_password = 'mysupersecrect',
+	[string]$resourcegroup = 'packer'
 )
 
 Login-AzureRmAccount
-$azuresub = Get-AzureRmSubscription -SubscriptionId $subscription_ID
-Select-AzureRmSubscription -SubscriptionID $subscription_ID
+$azuresub = Get-AzureRmSubscription | Out-GridView -Passthru
+Select-AzureRmSubscription -SubscriptionId $azuresub.id
 
 New-AzureRmResourceGroup -Name $resourcegroup -Location $azurelocation -Verbose
 
@@ -19,8 +18,16 @@ $app = New-AzureRmADApplication -DisplayName $resourcegroup -HomePage http://loc
 
 $spn = New-AzureRmADServicePrincipal -DisplayName ("$resourcegroup + SPN") -ApplicationId $app.ApplicationId -Verbose
 
-Start-Sleep -Seconds 10
-$roleassignment = New-AzureRmRoleAssignment -ApplicationId $spn.ApplicationId -RoleDefinitionName Owner -Scope ("/subscriptions/$subscription_ID") -Verbose
+Start-Sleep -Seconds 20
+$roleassignment = New-AzureRmRoleAssignment -ApplicationId $spn.ApplicationId -RoleDefinitionName Owner -Scope ("/subscriptions/$($azuresub.id)") -Verbose
 
-$result = @{SubscriptionID="$($azuresub.SubscriptionId)"; TenantID = "$($azuresub.TenantId)"; ClientID = "$($app.ApplicationId)"; client_secret = $app_password; resource_group_name = $resourcegroup; storage_account = "$($azurestorage.StorageAccountName)"}
-$result|ft -AutoSize
+$result = @{
+	SubscriptionID = "$($azuresub.SubscriptionId)"
+	TenantID = "$($azuresub.TenantId)"
+	ClientID = "$($app.ApplicationId)"
+	client_secret = $app_password
+	resource_group_name = $resourcegroup
+	storage_account = "$($azurestorage.StorageAccountName)"
+}
+
+$result | Format-Table -AutoSize
