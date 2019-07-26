@@ -1,4 +1,4 @@
-write-host "Install APPS via Choco"
+Write-Host "Install APPS via Choco"
 
 #Install GIT
 choco install -y git -params '"/GitOnlyOnPath"'

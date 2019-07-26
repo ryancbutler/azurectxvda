@@ -46,12 +46,12 @@ $start = Invoke-WebRequest "https://identity.citrix.com/Utility/STS/Sign-In" -Se
 
 #Set Form
 $form = @{
-"persistent" = "1"
-"userName" = $CitrixUserName
-"loginbtn" = ""
-"password" = $CitrixPassword
-"returnURL" = "https://www.citrix.com/login/bridge?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload"
-"errorURL" = 'https://www.citrix.com/login?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload&err=y'
+	"persistent" = "1"
+	"userName" = $CitrixUserName
+	"loginbtn" = ""
+	"password" = $CitrixPassword
+	"returnURL" = "https://www.citrix.com/login/bridge?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload"
+	"errorURL" = 'https://www.citrix.com/login?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload&err=y'
 }
 
 #Authenticate

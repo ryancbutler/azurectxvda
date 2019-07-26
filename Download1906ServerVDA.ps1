@@ -13,7 +13,7 @@ Write-Host $CitrixUserName
 #$CitrixPassword = $creds.GetNetworkCredential().Password
 
 $downloadpath = "$($env:SystemRoot)\temp\$($env:vda)"
-write-host $downloadpath
+Write-Host $downloadpath
 
 $code = @"
 public class SSLHandler
@@ -46,9 +46,9 @@ Invoke-WebRequest "https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2f
 
 #Set Form
 $form = @{
-    "persistent" = "on"
-    "userName" = $CitrixUserName
-    "password" = $CitrixPassword
+	"persistent" = "on"
+	"userName" = $CitrixUserName
+	"password" = $CitrixPassword
 }
 
 #Authenticate
