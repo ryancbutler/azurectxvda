@@ -18,4 +18,5 @@ steps:
     subid: $(subid)
     tenantid: $(tenantid)
     storage_account: $(storage_account)
-    mycitrix: $(mycitrix)
+    mycitrix_USR: $(mycitrix_USR)
+    mycitrix_PSW: $(mycitrix_PSW)
