@@ -1,5 +1,5 @@
 trigger:
-- online
+- none
 
 container: thinkahead/aws-vsphere-ws-byol:ansible2.7
 
@@ -8,7 +8,7 @@ pool:
 
 steps:
 - script: packer build -color=false -machine-readable ./windows2016vda.json
-  displayName: 'Run Jenkins Job'
+  displayName: 'Run Packer Job'
   env:
     vda: "VDAServerSetup_1906.exe"
     vdacontrollers: "ctxlicense-0.lab.local"
