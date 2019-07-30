@@ -1,0 +1,21 @@
+trigger:
+- online
+
+container: thinkahead/aws-vsphere-ws-byol:ansible2.7
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: packer build -color=false -machine-readable ./windows2016vda.json
+  displayName: 'Run Jenkins Job'
+  env:
+    vda: "VDAServerSetup_1906.exe"
+    vdacontrollers: "ctxlicense-0.lab.local"
+    rgname: "packer"
+    client_id: $(client_id)
+    client_secret: $(client_secret)
+    subid: $(subid)
+    tenantid: $(tenantid)
+    storage_account: $(storage_account)
+    mycitrix: $(mycitrix)
