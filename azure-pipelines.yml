@@ -20,3 +20,11 @@ steps:
     storage_account: $(storage_account)
     mycitrix_USR: $(mycitrix_USR)
     mycitrix_PSW: $(mycitrix_PSW)
+- task: CreateArtifacts
+  inputs:
+    pathtoPublish: 'hotfix.json'
+    artifactName: hotfix
+- task: CreateArtifacts
+  inputs:
+    pathtoPublish: 'package.json'
+    artifactName: package
