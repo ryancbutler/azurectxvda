@@ -35,6 +35,7 @@ pipeline {
             steps{
                 archiveArtifacts artifacts: 'hotfix.json', fingerprint: true
                 archiveArtifacts artifacts: 'package.json', fingerprint: true
+                archiveArtifacts artifacts: 'manifest.json', fingerprint: true
             }
         }
     }
