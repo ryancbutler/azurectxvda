@@ -25,9 +25,11 @@ pipeline {
             steps {
                 timeout(time: 3, unit: 'HOURS')
                 {
-                    sh '''
-                    packer build -color=false -machine-readable ./windows2016vda.json
-                    '''
+                    retry(2) {
+                        sh '''
+                        packer build -color=false -machine-readable ./windows2016vda.json
+                        '''
+                    }
                 }
             }
         }
