@@ -54,7 +54,7 @@ $form = @{
 #Authenticate
 Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2fUtility%2fSTS%2fsaml20%2fpost-binding-response") -WebSession $websession -Method POST -Body $form -ContentType "application/x-www-form-urlencoded" -Verbose -UseBasicParsing
 
-$download = Invoke-WebRequest -Uri ('https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=16110&URL=https://downloads.citrix.com/16110/VDAServerSetup_1906.exe') -WebSession $websession -MaximumRedirection 100 -Verbose -Method GET -UseBasicParsing
+$download = Invoke-WebRequest -Uri ('https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=16110&URL=https://downloads.citrix.com/16110/VDAServerSetup_1906_2.exe') -WebSession $websession -MaximumRedirection 100 -Verbose -Method GET -UseBasicParsing
 $webform = @{
 	"chkAccept" = "on"
 	"__EVENTTARGET" = "clbAccept_0"
@@ -64,4 +64,4 @@ $webform = @{
 }
 
 #Download
-Invoke-WebRequest -Uri ("https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=16110&URL=https%3a%2f%2fdownloads.citrix.com%2f16110%2fVDAServerSetup_1906.exe") -WebSession $websession -Method POST -Body $webform -ContentType "application/x-www-form-urlencoded" -OutFile $downloadpath -Verbose -UseBasicParsing
+Invoke-WebRequest -Uri ("https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=16110&URL=https://downloads.citrix.com/16110/VDAServerSetup_1906_2.exe") -WebSession $websession -Method POST -Body $webform -ContentType "application/x-www-form-urlencoded" -OutFile $downloadpath -Verbose -UseBasicParsing
