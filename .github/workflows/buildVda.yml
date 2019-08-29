@@ -1,0 +1,28 @@
+name: Build CTX VDA
+
+on: repository_dispatch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: "thinkahead/aws-vsphere-ws-byol:ansible2.7"
+      args: "-u root --privileged"
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run Packer
+      run: packer build -color=false -machine-readable ./windows2016vda.json
+      env:
+        client_id: Mona
+        rgname: "packer"
+        storage_account: ${{ secrets.storage_account }}
+        client_secret: ${{ secrets.client_secret }}
+        subid: ${{ secrets.subid }}
+        TenantID: ${{ secrets.TenantID }}
+        mycitrix_USR: ${{ secrets.mycitrix_USR }}
+        mycitrix_PSW: ${{ secrets.mycitrix_PSW }}
+        vda: "VDAServerSetup_1906.exe"
+        vdacontrollers: "ctxlicense-0.lab.local"
