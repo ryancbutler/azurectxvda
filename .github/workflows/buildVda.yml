@@ -10,6 +10,11 @@ jobs:
     container:
       image: "thinkahead/aws-vsphere-ws-byol:ansible2.7"
       options: -u root --privileged
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run Packer
+      run: packer build -color=false -machine-readable ./windows2016vda.json
       env:
         client_id: ${{ secrets.client_id }}
         rgname: "packer"
@@ -21,8 +26,3 @@ jobs:
         mycitrix_PSW: ${{ secrets.mycitrix_PSW }}
         vda: "VDAServerSetup_1906.exe"
         vdacontrollers: "ctxlicense-0.lab.local"
-    
-    steps:
-    - uses: actions/checkout@v1
-    - name: Run Packer
-      run: packer build -color=false -machine-readable ./windows2016vda.json
