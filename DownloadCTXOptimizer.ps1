@@ -13,7 +13,7 @@ Write-Host $CitrixUserName
 #$CitrixPassword = $creds.GetNetworkCredential().Password
 
 $downloadpath = "$($env:SystemRoot)\temp\CitrixOptimizer.zip"
-$unzippath = "C:\Program Files (x86)\Citrix Optimizer"
+$unzippath = "$($env:SystemRoot)\temp\CitrixOptimizer"
 
 $code = @"
 public class SSLHandler
