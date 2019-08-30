@@ -101,7 +101,7 @@
       "type": "windows-restart"
     },
     {
-      "type": "shell-local",
+      "type": "shell",
       "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
       "env_var_format": "$env:%s=\"%s\"; ",
       "script": "$($env:SystemRoot)\\temp\\CitrixOptimizerCtxOptimizerEngine.ps1 -Source \"$($env:SystemRoot)\\temp\\CitrixOptimizer\\Templates\\Citrix_Windows_Server_2016_1607.xml\" -Mode Execute -OutputXml \"C:\\Windows\\Temp\\ctxopt-log.xml\""
