@@ -102,7 +102,7 @@
     },
     {
       "type": "powershell",
-      "inline": ["C:\\Program Files (x86)\\Citrix Optimizer\\CtxOptimizerEngine.ps1 -Source \"C:\\Program Files (x86)\\Citrix Optimizer\\Templates\\Citrix_Windows_Server_2016_1607.xml\" -Mode Execute -OutputXml \"C:\\Windows\\Temp\\ctxopt.xml\""]
+      "inline": ["${env:ProgramFiles(x86)}\\CtxOptimizerEngine.ps1 -Source \"C:\\Program Files (x86)\\Citrix Optimizer\\Templates\\Citrix_Windows_Server_2016_1607.xml\" -Mode Execute -OutputXml \"C:\\Windows\\Temp\\ctxopt.xml\""]
     },
     {
       "type": "powershell",
